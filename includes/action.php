@@ -28,7 +28,7 @@ if (isset($_POST['loginBtn'])) {
             $_SESSION['user_type'] = $user_type;
 
             //Redirect to dashboard based on user role
-            if ($_SESSION['user_type'] != "SELLER") {
+            if ($_SESSION['user_type'] === "SELLER") {
                 header('Location: ../Sell-page/sell.html');
             } elseif ($_SESSION['user_type'] != "BUYER") {
                 header('Location: ../index.php');
@@ -62,7 +62,7 @@ if (isset($_POST['signupBtn'])) {
         //Redirect to dashboard based on user role
         if ($_SESSION['user_type'] != "SELLER") {
             header('Location: ../Sell-page/sell.html');
-        } elseif ($_SESSION['user_type'] != "BUYER") {
+        } elseif ($_SESSION['user_type'] === "BUYER") {
             header('Location: ../index.php');
         }
 
