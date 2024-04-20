@@ -1,3 +1,23 @@
+<?php
+session_start();
+include '../database/config.php';
+
+if (isset($_SESSION['id'])) {
+    echo $user_id = $_SESSION['id'];
+    echo $name = $_SESSION['name'];
+}
+
+$sqlProdCate = "SELECT * FROM product_category";
+$sqlProdCateQuery = mysqli_query($con, $sqlProdCate);
+
+
+
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,8 +25,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SELL</title>
-    <link rel="stylesheet" href="/Sell-page/header.css">
-    <link rel="stylesheet" href="/Sell-page/sell-products.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="sell-products.css">
     <!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -18,34 +38,27 @@
 <body>
     <!-- Nav Menu -->
     <header class="header">
-
         <div class="nav">
-
             <div class="header-container">
                 <div class="header-inner">
                     <span class="side-logo">
                         <img src="../LOGO 6.png" width="100 alt=">
                     </span>
-                   <span class="home-dir">
-                    <a href="/index.html">Home</a>
-                   </span> 
+                    <span class="home-dir">
+                        <a href="../index.php">Home</a>
+                    </span>
                 </div>
-               
+
                 <div class="account-box">
                     <span class="material-symbols-outlined">
                         search
                     </span>
 
                     <span>
-                        <img src="/assets/avatar.png" alt="Avatar" class="avatar"
+                        <img src="../assets/avatar.png" alt="Avatar" class="avatar"
                             style="width:30px; height:30px ;"></span>
-
-
                 </div>
-
-
             </div>
-
         </div>
         <hr>
 
@@ -77,7 +90,7 @@
     <div class="Product-wrapper">
         <div class="product-grid">
             <div class="product-item">
-                <span> <img src="/assets/Products-images/1.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/1.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -93,7 +106,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images/2.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/2.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -109,7 +122,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images/3.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/3.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -125,7 +138,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images/4.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/4.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -141,7 +154,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images/5.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/5.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -157,7 +170,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images/6.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/6.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -173,7 +186,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images/7.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/7.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -189,7 +202,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images/8.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/8.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -205,7 +218,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images/9.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/9.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -221,7 +234,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images/20.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/20.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -237,7 +250,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images/11.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/11.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -253,7 +266,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images//15.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images//15.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -269,7 +282,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images/3.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/3.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -285,7 +298,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images/11.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/11.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -301,7 +314,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images/8.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/8.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -317,7 +330,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images/7.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/7.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -333,7 +346,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images/6.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/6.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -349,7 +362,7 @@
                 </span>
             </div>
             <div class="product-item">
-                <span> <img src="/assets/Products-images/1.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../assets/Products-images/1.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
                     <h4>Lenovo Ideapad V14 Laptop</h4>
@@ -402,19 +415,21 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Add Product</h2>
-            <form action="#" id="addProductForm">
+            <form action="../includes/action.php" method="POST" enctype="multipart/form-data" id="addProductForm">
 
                 <span class="product-name-box">
                     <span class="productName">
 
                         <label for="productName">Product Title</label>
-                        <input type="text" id="productName" name="productName" required>
+                        <input type="text" id="productName" name="product_name" required>
+
+                        <input type="hidden" id="user_id" name="user_id" value="<?= $_SESSION['id']; ?>" required>
 
                     </span>
                     <span class="productName">
 
                         <label for="Description">Discription</label>
-                        <input type="text" id="productName" name="productName" required>
+                        <input type="text" id="productName" name="description" required>
 
                     </span>
                     <span class="productImage-Upload">
@@ -424,7 +439,7 @@
                                 </span>
                                 Upload items
                             </label>
-                            <input type="file" id="productImage" name="productImage" accept="image/*" multiple
+                            <input type="file" id="productImage" name="file" accept="image/*" multiple
                                 style="display: none;">
                         </span>
                         <div id="selectedItems"></div>
@@ -442,63 +457,63 @@
                             <label for="category">Categories:</label>
                             <select id="category" name="category" required>
                                 <option value="">Select a category</option>
-                                <option value="electronics">Electronics</option>
-                                <option value="clothing">Clothing</option>
-                                <option value="books">Books</option>
-                                <option value="toys">Toys</option>
-                              
+                                <?php while ($cat = mysqli_fetch_assoc($sqlProdCateQuery)): ?>
+                                    <option value="<?= $cat['id'] ?>"><?= $cat['category_name'] ?></option>
+                                <?php endwhile; ?>
+
+
                             </select>
                         </div>
-                        
-                    <div class="subcategories-container">
-                        <div class="categories-box2">
-                            <label for="subcategory">Subcategories:</label>
-                            <select id="subcategory" name="subcategory" required>
-                                <option value="">Select a subcategory</option>
-                                <!-- Subcategories for Electronics -->
-                                <optgroup label="Electronics">
-                                    <option value="phones">Phones</option>
-                                    <option value="laptops">Laptops</option>
-                                    <option value="tablets">Tablets</option>
-                                </optgroup>
-                                <!-- Subcategories for Clothing -->
-                                <optgroup label="Clothing">
-                                    <option value="shirts">Shirts</option>
-                                    <option value="pants">Pants</option>
-                                    <option value="dresses">Dresses</option>
-                                </optgroup>
-                                <!-- Add more subcategories as needed -->
-                            </select>
-                        </div>
-                        
 
-
-                    </div>
-                </div>
-                
-
-
-                <!-- Container for image previews -->
-                <div class="Price-container">
-                    <div class="price-box2">
-                        <label for="priceAmount">Price:</label>
-                        <div class="price-input-wrapper">
-                            <input type="text" id="priceAmount" name="priceAmount" required>
-                            <div class="currency-selector">
-                                <select id="currency" name="currency">
-                                    <option value="USD">USD</option>
-                                    <option value="GHC">GHC</option>
+                        <div class="subcategories-container">
+                            <div class="categories-box2">
+                                <label for="subcategory">Subcategories:</label>
+                                <select id="subcategory" name="subcategory" required>
+                                    <option value="">Select a subcategory</option>
+                                    <!-- Subcategories for Electronics -->
+                                    <optgroup label="Electronics">
+                                        <option value="phones">Phones</option>
+                                        <option value="laptops">Laptops</option>
+                                        <option value="tablets">Tablets</option>
+                                    </optgroup>
+                                    <!-- Subcategories for Clothing -->
+                                    <optgroup label="Clothing">
+                                        <option value="shirts">Shirts</option>
+                                        <option value="pants">Pants</option>
+                                        <option value="dresses">Dresses</option>
+                                    </optgroup>
+                                    <!-- Add more subcategories as needed -->
                                 </select>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+
+
+                    <!-- Container for image previews -->
+                    <div class="Price-container">
+                        <div class="price-box2">
+                            <label for="priceAmount">Price:</label>
+                            <div class="price-input-wrapper">
+                                <input type="text" id="priceAmount" name="price" required>
+                                <div class="currency-selector">
+                                    <select id="currency" name="currency">
+                                        <option value="USD">USD</option>
+                                        <option value="GHC">GHC</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <span class="submit-btn">
-                    <button type="submit" id="addProductBtn">Submit</button>
-                </span>
-                
-                
-                <!-- <label for="productTags">Tags:</label>
+                    <span class="submit-btn">
+                        <button type="submit" name="addProductBtn" id="addProductBtn">Submit</button>
+                    </span>
+
+
+                    <!-- <label for="productTags">Tags:</label>
                 <input type="text" id="productTags" name="productTags">
 
                 <label for="productCategory">Category:</label>
@@ -507,19 +522,19 @@
                     <option value="category2">Mobile Phone</option>
                     <option value="category3">Printers</option>
                 </select> -->
-                <!-- 
+                    <!-- 
                 <label for="productPrice">Price:</label>
                 <input type="number" id="productPrice" name="productPrice" min="0" step="0.01" required>
  -->
-            
-               
+
+
             </form>
         </div>
     </div>
 
 
 
-    <script src="/Sell-page/sell.js"></script>
+    <script src="sell.js"></script>
     <script>
         const actualPrice = document.querySelector('#actual-price');
 

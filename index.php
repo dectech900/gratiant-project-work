@@ -1,3 +1,17 @@
+<?php
+session_start();
+include '../database/config.php';
+
+if(isset($_SESSION['id'])){
+     $user_id = $_SESSION['id'];
+     $name = $_SESSION['name'];
+}
+
+$sqlProd = "SELECT * FROM products";
+// $sqlProdCateQuery = mysqli_query($con, $sqlProdCate);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,8 +36,19 @@
             <img src="./assets/search_icon.png" class="nav-search-icon" alt="">
         </div>
         <div class="nav-texts">
-            <p><a href="Login-page/login.html">Hello, sign in</a>
+            <?php
+            if($_SESSION['id']) {
+                ?>
+         <p><a href="">Hello,  <?= $_SESSION['name'] ?></a>
             </p>
+                <?php
+            }else{
+                ?>
+         <p><a href="Login-page/login.html">Hello,  sign in</a></p>
+                <?php
+            }
+            ?>
+   
         </div>
         <a href="Login-page/login.html" class="mobile-user-icon" style="display: none;">
             <img src="./assets/user.png">
@@ -37,13 +62,13 @@
         <div>
             <img src="./assets/menu_icon.png" width="25px" alt="">
         </div>
-        <p><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/index.html"> Home</a></p>
+        <p><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/index.php"> Home</a></p>
         <p><a href="/Product-page/product.html"> Product</a></p>
         <!-- <p><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/About.html"> About</a></p> -->
         <p><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/CONTACT.html"> Contact</a></p>
 
         <!-- <p><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/FAQS.html"> Faqs</a></p> -->
-        <p><a href="/Sell-page/sell.HTML"> Sell</a></p>
+        <p><a href="Sell-page/sell.php"> Sell</a></p>
 
 
     </div>
@@ -201,7 +226,7 @@
             <br>
             <ul>
                 <h3>Make Money with Us</h3>
-                <li><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/SELL%20ON%20SECURE.BuynSell.html">Sell
+                <li><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/SELL%20ON%20SECURE.Buynsell.php">Sell
                         on SECURE.BuynSell</a></li>
                 <li><a
                         href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/Protect%20and%20build%20your%20brand.html">Protect

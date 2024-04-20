@@ -1,17 +1,25 @@
 <?php
-// session_start();
+session_start();
 include '../database/config.php';
 
 
 if (isset($_POST['loginBtn'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    echo $email = $_POST['email'];
+    echo $password = $_POST['password'];
 
     $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
     $sqlQuery = mysqli_query($con, $sql);
 
+    var_dump($sqlQuery);
+
     if (mysqli_num_rows($sqlQuery) > 0) {
         $rows = mysqli_fetch_assoc($sqlQuery);
+
+
+        // var_dump($rows);
+
+        // die();
+
         $id = $rows["id"];
         $user_type = $rows["user_type"];
         $email = $rows["email"];
@@ -29,7 +37,7 @@ if (isset($_POST['loginBtn'])) {
 
             //Redirect to dashboard based on user role
             if ($_SESSION['user_type'] === "SELLER") {
-                header('Location: ../Sell-page/sell.html');
+                header('Location: ../Sell-page/sell.php');
             } elseif ($_SESSION['user_type'] != "BUYER") {
                 header('Location: ../index.php');
             }
@@ -42,14 +50,24 @@ if (isset($_POST['loginBtn'])) {
 }
 
 if (isset($_POST['signupBtn'])) {
-   echo $email = $_POST['email'];
+    $email = $_POST['email'];
     $name = $_POST['name'];
     $password = $_POST['password'];
     $confirmPassword = $_POST['confirmPassword'];
     $user_type = $_POST['user_type'];
+    $phone = "023233434";
 
-    $sql = "INSERT INTO users(name, email, password, user_type) VALUES('$name','$email','$password','$user_type')";
+    $sql = "INSERT INTO `users`( `name`, `email`, `phone`, `user_type`, `password`) VALUES('$name','$email', '$phone', '$user_type','$password')";
     $sqlQuery = mysqli_query($con, $sql);
+
+    // Perform a query, check for error
+// if (!mysqli_query($con,"INSERT INTO `usersU`( `name`, `email`, `phone`, `user_type`, `password`) VALUES('$name','$email', '$phone', '$user_type','$password)")) {
+//     echo("Error description: " . mysqli_error($con));
+//   }
+
+    //   die();
+
+    // echo $sqlQuery;
     $last_id = mysqli_insert_id($con);
     if ($sqlQuery) {
         // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
@@ -57,11 +75,11 @@ if (isset($_POST['signupBtn'])) {
         $_SESSION['loggedin'] = TRUE;
         $_SESSION['name'] = $name;
         $_SESSION['email'] = $email;
-          $_SESSION['id'] = $last_id;
+        $_SESSION['id'] = $last_id;
         $_SESSION['user_type'] = $user_type;
         //Redirect to dashboard based on user role
-        if ($_SESSION['user_type'] != "SELLER") {
-            header('Location: ../Sell-page/sell.html');
+        if ($_SESSION['user_type'] === "SELLER") {
+            header('Location: ../Sell-page/sell.php');
         } elseif ($_SESSION['user_type'] === "BUYER") {
             header('Location: ../index.php');
         }
@@ -75,5 +93,87 @@ if (isset($_POST['signupBtn'])) {
 
 }
 
+
+if (isset($_POST['addProductBtn'])) {
+     $product_name = $_POST['product_name'];
+    $category = $_POST['category'];
+    $user_id = $_POST['user_id'];
+    $description = $_POST['description'];
+    $price = $_POST['price'];
+    $user_id = $_POST['user_id'];
+    // $user_id = $_POST['user_id'];
+
+    // File upload directory 
+// $targetDir = "../uploads/"; 
+
+    //   echo $images =  $_FILES["file"]["name"];
+
+    // $filename = $_FILES["file"]["name"];
+    // $tempname = $_FILES["file"]["tmp_name"];
+
+    // $folder = "../uploads/" . $filename;
+
+
+    // $data = file_get_contents($_FILES['image']['tmp_name']);
+
+    // $sql = "INSERT INTO `products`(`product_name`, `description`, `price`, `category`, `user_id`, `images`) VALUES ('$product_name', '$description', '$price','$category', '$user_id', '$data')";
+    // $sql = "INSERT INTO `products`(`product_name`) VALUES ('$product_name')";
+    // $query = mysqli_query($con, $sql);
+
+    // Perform a query, check for error
+if (!mysqli_query($con,"INSERT INTO `products`(`product_name`) VALUES ('$product_name')")) {
+    echo("Error description: " . mysqli_error($con));
+  }
+  
+  mysqli_close($con);
+
+
+    if ($query) {
+        header('Location: ../Sell-page/sell.php');
+    }else{
+        $error = error_get_last();
+        echo "Error: " . $error['message'];
+    }
+
+    // if (move_uploaded_file($tempname, $folder)) {
+    //     // File moved successfully
+    //     echo "success";
+    // } else {
+    //     // Error occurred
+    //     $error = error_get_last();
+    //     echo "Error: " . $error['message'];
+    // }
+
+    //   if (move_uploaded_file($tempname, $folder)) {
+//                   $sql = "INSERT INTO `products`(`product_name`, `description`, `price`, `category`, `user_id`, `images`) VALUES ('$product_name', '$description', '$price','$category', '$user_id', '$filename')";
+//                   $query = mysqli_query($con, $sql);
+
+    //                   if($query){
+//                     header('Location: ../Sell-page/sell.php');
+//                   }
+//   }
+
+    //    $fileName = basename($_FILES["file"]["name"]); 
+//    $targetFilePath = $targetDir . $fileName; 
+//         $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION); 
+
+    //         // Allow certain file formats 
+//         $allowTypes = array('jpg','png','jpeg','gif'); 
+
+    //         if(in_array($fileType, $allowTypes)){ 
+//             // Upload file to server 
+//             if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
+//                   $sql = "INSERT INTO `products`(`product_name`, `description`, `price`, `category`, `user_id`, `images`) VALUES ('$product_name', '$description', '$price','$category', '$user_id', '$fileName')";
+//                   $query = mysqli_query($con, $sql);
+
+    //                   if($query){
+//                     header('Location: ../Sell-page/sell.php');
+//                   }
+//             }
+//         }
+
+
+
+}
 
 
