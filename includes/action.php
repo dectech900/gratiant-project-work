@@ -95,7 +95,7 @@ if (isset($_POST['signupBtn'])) {
 
 
 if (isset($_POST['addProductBtn'])) {
-     $product_name = $_POST['product_name'];
+    $product_name = $_POST['product_name'];
     $category = $_POST['category'];
     $user_id = $_POST['user_id'];
     $description = $_POST['description'];
@@ -108,70 +108,31 @@ if (isset($_POST['addProductBtn'])) {
 
     //   echo $images =  $_FILES["file"]["name"];
 
-    // $filename = $_FILES["file"]["name"];
-    // $tempname = $_FILES["file"]["tmp_name"];
+    $filename = $_FILES["file"]["name"];
+    $tempname = $_FILES["file"]["tmp_name"];
 
-    // $folder = "../uploads/" . $filename;
-
-
-    // $data = file_get_contents($_FILES['image']['tmp_name']);
-
-    // $sql = "INSERT INTO `products`(`product_name`, `description`, `price`, `category`, `user_id`, `images`) VALUES ('$product_name', '$description', '$price','$category', '$user_id', '$data')";
-    // $sql = "INSERT INTO `products`(`product_name`) VALUES ('$product_name')";
-    // $query = mysqli_query($con, $sql);
-
-    // Perform a query, check for error
-if (!mysqli_query($con,"INSERT INTO `products`(`product_name`) VALUES ('$product_name')")) {
-    echo("Error description: " . mysqli_error($con));
-  }
-  
-  mysqli_close($con);
+    $folder = "../uploads/" . $filename;
 
 
-    if ($query) {
-        header('Location: ../Sell-page/sell.php');
-    }else{
+    if (move_uploaded_file($tempname, $folder)) {
+        $sql = "INSERT INTO `products`(`product_name`, `description`, `price`, `category`, `user_id`, `images`) VALUES ('$product_name', '$description', '$price','$category', '$user_id', '$filename')";
+
+        $query = mysqli_query($con, $sql);
+
+        mysqli_close($con);
+
+
+        if ($query) {
+            header('Location: ../Sell-page/sell.php');
+        } else {
+            $error = error_get_last();
+            echo "Error: " . $error['message'];
+        }
+    } else {
+        // Error occurred
         $error = error_get_last();
         echo "Error: " . $error['message'];
     }
-
-    // if (move_uploaded_file($tempname, $folder)) {
-    //     // File moved successfully
-    //     echo "success";
-    // } else {
-    //     // Error occurred
-    //     $error = error_get_last();
-    //     echo "Error: " . $error['message'];
-    // }
-
-    //   if (move_uploaded_file($tempname, $folder)) {
-//                   $sql = "INSERT INTO `products`(`product_name`, `description`, `price`, `category`, `user_id`, `images`) VALUES ('$product_name', '$description', '$price','$category', '$user_id', '$filename')";
-//                   $query = mysqli_query($con, $sql);
-
-    //                   if($query){
-//                     header('Location: ../Sell-page/sell.php');
-//                   }
-//   }
-
-    //    $fileName = basename($_FILES["file"]["name"]); 
-//    $targetFilePath = $targetDir . $fileName; 
-//         $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION); 
-
-    //         // Allow certain file formats 
-//         $allowTypes = array('jpg','png','jpeg','gif'); 
-
-    //         if(in_array($fileType, $allowTypes)){ 
-//             // Upload file to server 
-//             if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
-//                   $sql = "INSERT INTO `products`(`product_name`, `description`, `price`, `category`, `user_id`, `images`) VALUES ('$product_name', '$description', '$price','$category', '$user_id', '$fileName')";
-//                   $query = mysqli_query($con, $sql);
-
-    //                   if($query){
-//                     header('Location: ../Sell-page/sell.php');
-//                   }
-//             }
-//         }
-
 
 
 }
