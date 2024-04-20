@@ -3,12 +3,16 @@ session_start();
 include '../database/config.php';
 
 if (isset($_SESSION['id'])) {
-    echo $user_id = $_SESSION['id'];
-    echo $name = $_SESSION['name'];
+     $user_id = $_SESSION['id'];
+     $name = $_SESSION['name'];
 }
 
 $sqlProdCate = "SELECT * FROM product_category";
 $sqlProdCateQuery = mysqli_query($con, $sqlProdCate);
+
+
+$sqlProd = "SELECT * FROM products WHERE user_id = '$user_id'";
+$sqlProdQuery = mysqli_query($con, $sqlProd);
 
 
 
@@ -89,12 +93,13 @@ $sqlProdCateQuery = mysqli_query($con, $sqlProdCate);
 
     <div class="Product-wrapper">
         <div class="product-grid">
+
+            <?php while($prod = mysqli_fetch_assoc($sqlProdQuery)): ?>
             <div class="product-item">
                 <span> <img src="../assets/Products-images/1.jpeg" alt="" style="width: 100px;"></span>
-
                 <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
+                    <h4><?= $prod['product_name'] ?></h4>
+                    <p>GH₵<?= $prod['price'] ?></p>
                     <div class="product-actions">
                         <span class="material-symbols-outlined">
                             note_stack_add
@@ -105,7 +110,8 @@ $sqlProdCateQuery = mysqli_query($con, $sqlProdCate);
                     </div>
                 </span>
             </div>
-            <div class="product-item">
+            <?php endwhile; ?>
+            <!-- <div class="product-item">
                 <span> <img src="../assets/Products-images/2.jpeg" alt="" style="width: 100px;"></span>
 
                 <span class="item-box">
@@ -376,7 +382,7 @@ $sqlProdCateQuery = mysqli_query($con, $sqlProdCate);
                         </span>
                     </div>
                 </span>
-            </div>
+            </div> -->
 
 
         </div>
@@ -465,30 +471,30 @@ $sqlProdCateQuery = mysqli_query($con, $sqlProdCate);
                             </select>
                         </div>
 
-                        <div class="subcategories-container">
+                        <!-- <div class="subcategories-container">
                             <div class="categories-box2">
                                 <label for="subcategory">Subcategories:</label>
                                 <select id="subcategory" name="subcategory" required>
                                     <option value="">Select a subcategory</option>
-                                    <!-- Subcategories for Electronics -->
+                                  
                                     <optgroup label="Electronics">
                                         <option value="phones">Phones</option>
                                         <option value="laptops">Laptops</option>
                                         <option value="tablets">Tablets</option>
                                     </optgroup>
-                                    <!-- Subcategories for Clothing -->
+                                   
                                     <optgroup label="Clothing">
                                         <option value="shirts">Shirts</option>
                                         <option value="pants">Pants</option>
                                         <option value="dresses">Dresses</option>
                                     </optgroup>
-                                    <!-- Add more subcategories as needed -->
+                                   
                                 </select>
                             </div>
 
 
 
-                        </div>
+                        </div> -->
                     </div>
 
 
