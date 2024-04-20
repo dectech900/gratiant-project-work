@@ -48,30 +48,30 @@ if (isset($_POST['signupBtn'])) {
     $confirmPassword = $_POST['confirmPassword'];
     $user_type = $_POST['user_type'];
 
-    // $sql = "INSERT INTO users(name, email, password, user_type) VALUES('$name','$email','$password','$user_type')";
-    // $sqlQuery = mysqli_query($con, $sql);
-    // $last_id = mysqli_insert_id($con);
-    // if ($sqlQuery) {
-    //     // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
-    //     session_regenerate_id();
-    //     $_SESSION['loggedin'] = TRUE;
-    //     $_SESSION['name'] = $name;
-    //     $_SESSION['email'] = $email;
-    //       $_SESSION['id'] = $last_id;
-    //     $_SESSION['user_type'] = $user_type;
-    //     //Redirect to dashboard based on user role
-    //     if ($_SESSION['user_type'] != "SELLER") {
-    //         header('Location: ../Sell-page/sell.html');
-    //     } elseif ($_SESSION['user_type'] != "BUYER") {
-    //         header('Location: ../index.php');
-    //     }
+    $sql = "INSERT INTO users(name, email, password, user_type) VALUES('$name','$email','$password','$user_type')";
+    $sqlQuery = mysqli_query($con, $sql);
+    $last_id = mysqli_insert_id($con);
+    if ($sqlQuery) {
+        // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
+        session_regenerate_id();
+        $_SESSION['loggedin'] = TRUE;
+        $_SESSION['name'] = $name;
+        $_SESSION['email'] = $email;
+          $_SESSION['id'] = $last_id;
+        $_SESSION['user_type'] = $user_type;
+        //Redirect to dashboard based on user role
+        if ($_SESSION['user_type'] != "SELLER") {
+            header('Location: ../Sell-page/sell.html');
+        } elseif ($_SESSION['user_type'] != "BUYER") {
+            header('Location: ../index.php');
+        }
 
-    //     // header('Location: ../Login-page/login.html?login-success');
+        // header('Location: ../Login-page/login.html?login-success');
 
-    // } else {
-    //     header('Location: ../Login-page/signup.html?login-error');
+    } else {
+        header('Location: ../Login-page/signup.html?login-error');
 
-    // }
+    }
 
 }
 
