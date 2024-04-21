@@ -1,47 +1,22 @@
-<html lang="en">
+<?php include_once '../includes/header2.php';  ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Page</title>
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/Product-page/product.css">
-</head>
+<?php
+if(isset($_GET['prod_id'])){
+    $prod_id =$_GET['prod_id'];
 
-<body>
-    <nav>
-        <a href="/"><img src="/LOGO 6.png" width="100" alt=""></a>
+$sqlProd = "SELECT * FROM products WHERE id = '$prod_id'";
+$sqlProdQuery = mysqli_query($con, $sqlProd);
+$product = mysqli_fetch_assoc($sqlProdQuery);
 
-        <div class="nav-search">
-            <div class="nav-search-category">
-                <p>All</p>
-                <img src="../assets/dropdown_icon.png" height="12" alt="">
-            </div>
-            <input type="text" class="nav-search-input" placeholder="Search SECURE.BuynSell">
-            <img src="/assets/search_icon.png" class="nav-search-icon" alt="">
-        </div>
-        <div class="nav-texts">
-            <p><a href="/Login-page/login.html">Hello, sign in</a></p>
-        </div>
-        <a href="/Login-page/login.html" class="mobile-user-icon" style="display: none;">
-            <img src="/assets/user.png">
-        </a>
-       
-    </nav>
-    <div class="nav-bottom">
-        <div>
-            <img src="../assets/menu_icon.png" width="25px" alt="">
-        </div>
-        <p><a href="/index.php"> Home</a></p>
-        <p><a href="/About-page/About.html"> About</a></p>
-        <p><a href="/Contact-page/Contact.html"> Contact</a></p>
-        <!-- <p><a href="/Faqs-page/"> Faqs</a></p> -->
-        <p><a href="/Sell-page/sell.php"> Sell</a></p>
 
-        
-       
-        
-    </div>
+
+}
+
+if(isset($_SESSION['id'])){
+    $user_id = $_SESSION['id'];
+}
+
+?>
 
     <p class="breadcrum">
         Video Games > PC > Accessories > Headset
@@ -49,31 +24,32 @@
 
     <div class="product-display">
         <div class="product-d-image">
-            <div class="product-list-image">
+            <!-- <div class="product-list-image">
                 <img src="../assets/product_img.jpg" width="60" alt="">
                 <img src="../assets/product_img.jpg" width="60" alt="">
                 <img src="../assets/product_img.jpg" width="60" alt="">
                 <img src="../assets/product_img.jpg" width="60" alt="">
                 <img src="../assets/product_img.jpg" width="60" alt="">
-            </div>
+            </div> -->
             <div class="product-main-image">
-                <img src="../assets/product_img.jpg" width="400" alt="">
+                <img src="../uploads/<?= $product['images']?>" width="400" alt="">
             </div>
         </div>
         <div class="product-d-details">
             <p class="product-title">
-                BENGOO G9000 Stereo Gaming Headset for PS4 PC Xbox One PS5 Controller, Noise Cancelling Over Ear
-                Headphones with Mic, LED Light, Bass Surround, Soft Memory Earmuffs (Blue)
+                <?= $product['product_name'];?>
+                <!-- BENGOO G9000 Stereo Gaming Headset for PS4 PC Xbox One PS5 Controller, Noise Cancelling Over Ear
+                Headphones with Mic, LED Light, Bass Surround, Soft Memory Earmuffs (Blue) -->
             </p>
-            <p class="product-store">
+            <a href="product.php" class="product-store">
                 Visit the GRATIAN Store
-            </p>
+</a>
             <div class="product-rating">
                 <div>
                     <div>4.3 <img src="../assets/rating_img.png" height="20px" alt=""></div>
-                    <p>10O+ ratings p>
+                    <p>10O+ ratings </p>
                 </div>
-                <p><span>Ghc300.00</span>Price</p>
+                <p><span>Ghc<?= $product['price'] ?></span>Price</p>
                 <hr>
             </div>
             <div class="product-prices">
@@ -124,13 +100,16 @@
             <hr>
             <div class="product-description">
                 <h1>About this item</h1>
-                <ul>
+
+                <?= $product['description'];?>
+
+                <!-- <ul>
                     <li>【Multi-Platform Compatible】Support PlayStation 4, New Xbox One, PC, Nintendo 3DS, Laptop, PSP, Tablet, iPad, Computer, Mobile Phone. Please note you need an extra Microsoft Adapter (Not Included) when connect with an old version Xbox One controller.</li>
                     <li>【Surrounding Stereo Subwoofer】Clear sound operating strong brass, splendid ambient noise isolation and high precision 40mm magnetic neodymium driver, acoustic positioning precision enhance the sensitivity of the speaker unit, bringing you vivid sound field, sound clarity, shock feeling sound. Perfect for various games like Halo 5 Guardians, Metal Gear Solid, Call of Duty, Star Wars Battlefront, Overwatch, World of Warcraft Legion, etc.</li>
                     <li>【Noise Isolating Microphone】Headset integrated onmi-directional microphone can transmits high quality communication with its premium noise-concellng feature, can pick up sounds with great sensitivity and remove the noise, which enables you clearly deliver or receive messages while you are in a game. Long flexible mic design very convenient to adjust angle of the microphone.</li>
                     <li>【Great Humanized Design】Superior comfortable and good air permeability protein over-ear pads, muti-points headbeam, acord with human body engineering specification can reduce hearing impairment and heat sweat.Skin friendly leather material for a longer period of wearing. Glaring LED lights desigend on the earcups to highlight game atmosphere.</li>
                     <li>【Effortlessly Volume Control】High tensile strength, anti-winding braided USB cable with rotary volume controller and key microphone mute effectively prevents the 49-inches long cable from twining and allows you to control the volume easily and mute the mic as effortless volume control one key mute.</li>
-                </ul>
+                </ul> -->
             </div>
         </div>
         <div class="product-d-purchase">
@@ -141,15 +120,24 @@
             </div>
             
             <h2 class="product-stock">In Stock</h2>
-            <select class="product-quantity">
-                <option value="1">Quantity: 1</option>
-                <option value="2">Quantity: 2</option>
-                <option value="3">Quantity: 3</option>
+            <form method="POST" action="../includes/action.php">
+                <input type="hidden" name="prod_id" value="<?= $product['id']; ?>" />
+                <input type="hidden" name="user_id" value="<?= $user_id; ?>" />
+                <input type="hidden" name="price" value="<?= $product['price']; ?>" />
+
+            <select name="quantity" class="product-quantity">
+                <?php for($i = 1; $i<=20; $i++): ?>
+                <option value="<?= $i ?>">Quantity: <?= $i ?></option>
+                <?php endfor; ?>
+                <!-- <option value="2">Quantity: 2</option>
+                <option value="3">Quantity: 3</option> -->
             </select>
             
-            <button class="btn">
-                <a href="/Cart-page/cart.html" >Add to cart</a>
+            <button type="submit" name="addToCartBtn" class="btn">
+                Add to cart
+                <!-- <a href="product-detailed.php?cart=" >Add to cart</a> -->
             </button>
+            </form>
             <button class="btn product-buy">
                 <a href="/Payment-page/PAYMENT.HTML" >Buy Now</a>
             </button>
@@ -227,7 +215,7 @@
         </div>
     </div>
     <footer class="product-footer">
-        <a href="/index.php"><img src="/LOGO 6.png" width="100" alt=""></a>
+        <a href="../index.php"><img src="../LOGO 6.png" width="100" alt=""></a>
         <p>© 2024, SECURE.BuynSell</p>
     </footer>
 

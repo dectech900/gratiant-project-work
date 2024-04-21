@@ -109,7 +109,6 @@ if (isset($_POST['addProductBtn'])) {
 
     $folder = "../uploads/" . $filename;
 
-
     if (move_uploaded_file($tempname, $folder)) {
         $sql = "INSERT INTO `products`(`product_name`, `description`, `price`, `category`, `user_id`, `images`) VALUES ('$product_name', '$description', '$price','$category', '$user_id', '$filename')";
 
@@ -134,3 +133,26 @@ if (isset($_POST['addProductBtn'])) {
 }
 
 
+if(isset($_POST['addToCartBtn'])){
+  echo  $prod_id = $_POST['prod_id'].'<br/>';
+  echo  $user_id = $_POST['user_id'].'<br/>';
+  echo  $price = $_POST['price'].'<br/>';
+  echo $quantity = $_POST['quantity'].'<br/>';
+    echo $subTotal = $price * $quantity;
+
+//     if (!mysqli_query($con,"INSERT INTO `cart`(`product_id`, `user_id`, `quantity`, `price`, `sub_total`) VALUES ('$prod_id','$user_id','$quantity','$price','$subTotal')")) {
+//     echo("Error description: " . mysqli_error($con));
+//   }
+
+    $sql = "INSERT INTO `cart`(`product_id`, `user_id`, `quantity`, `price`, `sub_total`) VALUES ('$prod_id','$user_id','$quantity','$price','$subTotal')";
+    $query = mysqli_query($con, $sql);
+
+    if($query){
+        echo 'saved';
+    }else {
+        // Error occurred
+        $error = error_get_last();
+        echo "Error: " . $error['message'];
+    }
+
+}
