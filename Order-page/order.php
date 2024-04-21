@@ -43,33 +43,11 @@ $sqlProdQuery = mysqli_query($con, $sqlCart);
         </thead>
         <tbody>
             <?php while($order = mysqli_fetch_assoc($sqlProdQuery)):
-                $prod = $order['order_info'];
-               
+              
                 ?>
             <tr>
                 <td>
-                 
-                <?php
-// $dataArray = json_encode($order['order_info']);
-
-// if ($dataArray !== null) {
-//     // Loop through each element of the array
-//     foreach ($dataArray as $item) {
-//         echo "Product ID: " . $item['id'] . "<br>";
-//         echo "Product Name: " . $item['product_name'] . "<br>";
-//         echo "Sub Total: $" . $item['sub_total'] . "<br>";
-//         echo "Price: $" . $item['price'] . "<br>";
-//         echo "Image: " . $item['images'] . "<br>";
-//         echo "Quantity: " . $item['quantity'] . "<br>";
-//         echo "<br>";
-//     }
-// } else {
-//     // Handle JSON decoding error
-//     echo "Error decoding JSON data.";
-// }
-                ?>
             
-
    
                 </td>
                 <!-- <td>System Architect</td> -->
