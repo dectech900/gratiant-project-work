@@ -101,12 +101,8 @@ if (isset($_POST['addProductBtn'])) {
     $description = $_POST['description'];
     $price = $_POST['price'];
     $user_id = $_POST['user_id'];
-    // $user_id = $_POST['user_id'];
+    $user_id2 = $_POST['user_2d'];
 
-    // File upload directory 
-// $targetDir = "../uploads/"; 
-
-    //   echo $images =  $_FILES["file"]["name"];
 
     $filename = $_FILES["file"]["name"];
     $tempname = $_FILES["file"]["tmp_name"];
