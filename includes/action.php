@@ -113,7 +113,6 @@ if (isset($_POST['addProductBtn'])) {
 
     $folder = "../uploads/" . $filename;
 
-
     if (move_uploaded_file($tempname, $folder)) {
         $sql = "INSERT INTO `products`(`product_name`, `description`, `price`, `category`, `user_id`, `images`) VALUES ('$product_name', '$description', '$price','$category', '$user_id', '$filename')";
 
