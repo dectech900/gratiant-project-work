@@ -96,7 +96,7 @@ $sqlProdQuery = mysqli_query($con, $sqlProd);
 
             <?php while($prod = mysqli_fetch_assoc($sqlProdQuery)): ?>
             <div class="product-item">
-                <span> <img src="../assets/Products-images/1.jpeg" alt="" style="width: 100px;"></span>
+                <span> <img src="../uploads/<?= $prod['images']?>" alt="" style="width: 100px;"></span>
                 <span class="item-box">
                     <h4><?= $prod['product_name'] ?></h4>
                     <p>GH₵<?= $prod['price'] ?></p>
