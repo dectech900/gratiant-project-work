@@ -37,7 +37,7 @@ $sqlProd = "SELECT * FROM products";
         </div>
         <div class="nav-texts">
             <?php
-            if($_SESSION['id']) {
+            if(isset($_SESSION['id'])) {
                 ?>
          <p><a href="">Hello,  <?= $_SESSION['name'] ?></a>
             </p>
