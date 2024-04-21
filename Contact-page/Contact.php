@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SECURE.PAYGH CONTACT</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+<?php include_once '../includes/header2.php';  ?>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-*{
+/* *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -25,12 +19,18 @@ body{
 ::selection{
   color: #fff;
   background: #0D6EFD;
-}
+} */
 .wrapper{
-  width: 715px;
+  width: 100%;
   background: #fff;
   border-radius: 5px;
   box-shadow: 10px 10px 10px rgba(0,0,0,0.05);
+  display: flex;
+  padding: 0 10px;
+  min-height: 100vh;
+  background: #0D6EFD;
+  align-items: center;
+  justify-content: center;
 }
 .wrapper header{
   font-size: 22px;
@@ -167,11 +167,9 @@ form .button-area{
   }
 }
 </style>
-</head>
-<body>
   <div class="wrapper">
     <header>Send us a Message</header>
-    <form action="#">
+    <form action="../includes/action.php" method="POST">
       <div class="dbl-field">
         <div class="field">
           <input type="text" name="name" placeholder="Enter your name" required>
@@ -179,6 +177,10 @@ form .button-area{
         </div>
         <div class="field">
           <input type="text" name="email" placeholder="Enter your email"required>
+          <i class='fas fa-envelope'></i>
+        </div>
+        <div class="field">
+          <input type="text" name="subject" placeholder="Enter subject"required>
           <i class='fas fa-envelope'></i>
         </div>
       </div>
@@ -194,13 +196,13 @@ form .button-area{
         <i class="material-icons">message</i>
       </div>
       <div class="button-area">
-        <button type="submit">Send Message</button>
+        <button type="submit" name="sendMessageBtn">Send Message</button>
         <span></span>
       </div>
     </form>
   </div>
 
-<script>
+<!-- <script>
 const form = document.querySelector("form"),
 statusTxt = form.querySelector(".button-area span");
 form.onsubmit = (e)=>{
@@ -230,7 +232,7 @@ form.onsubmit = (e)=>{
   let formData = new FormData(form);
   xhr.send(formData);
 }
-</script>
+</script> -->
 
 
 

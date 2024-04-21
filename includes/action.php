@@ -101,7 +101,12 @@ if (isset($_POST['addProductBtn'])) {
     $description = $_POST['description'];
     $price = $_POST['price'];
     $user_id = $_POST['user_id'];
-    $user_id2 = $_POST['user_2d'];
+    $brand = $_POST['brand'];
+    $color = $_POST['color'];
+    $model = $_POST['model'];
+    $rating = $_POST['rating'];
+    $form_factor = $_POST['form_factor'];
+    $technology = $_POST['technology'];
 
 
     $filename = $_FILES["file"]["name"];
@@ -110,7 +115,7 @@ if (isset($_POST['addProductBtn'])) {
     $folder = "../uploads/" . $filename;
 
     if (move_uploaded_file($tempname, $folder)) {
-        $sql = "INSERT INTO `products`(`product_name`, `description`, `price`, `category`, `user_id`, `images`) VALUES ('$product_name', '$description', '$price','$category', '$user_id', '$filename')";
+        $sql = "INSERT INTO `products`(`product_name`, `description`, `price`, `category`, `user_id`, `images`, `brand`, `model`, `color`,`rating`,`form_factor`,`technology`) VALUES ('$product_name', '$description', '$price','$category', '$user_id', '$filename','$brand', '$model','$color','$rating','$form_factor','$technology')";
 
         $query = mysqli_query($con, $sql);
 
@@ -132,13 +137,23 @@ if (isset($_POST['addProductBtn'])) {
 
 }
 
+if(isset($_GET['delete_product'])){
+   echo $prod_id = $_GET['prod_id'];
+
+    $sql = "DELETE FROM products WHERE id = '$prod_id'";
+    $query = mysqli_query($con, $sql);
+    if($query){
+        header('Location: ../Sell-page/sell.php');
+    }
+}
+
 
 if(isset($_POST['addToCartBtn'])){
-  echo  $prod_id = $_POST['prod_id'].'<br/>';
-  echo  $user_id = $_POST['user_id'].'<br/>';
-  echo  $price = $_POST['price'].'<br/>';
-  echo $quantity = $_POST['quantity'].'<br/>';
-    echo $subTotal = $price * $quantity;
+  echo  $prod_id = $_POST['prod_id'];
+  echo  $user_id = $_POST['user_id'];
+  echo  $price = $_POST['price'];
+  echo $quantity = $_POST['quantity'];
+ echo $subTotal = (float)$price * (int)$quantity;
 
 //     if (!mysqli_query($con,"INSERT INTO `cart`(`product_id`, `user_id`, `quantity`, `price`, `sub_total`) VALUES ('$prod_id','$user_id','$quantity','$price','$subTotal')")) {
 //     echo("Error description: " . mysqli_error($con));
@@ -148,7 +163,7 @@ if(isset($_POST['addToCartBtn'])){
     $query = mysqli_query($con, $sql);
 
     if($query){
-        echo 'saved';
+        header('Location: ../Product-page/product-detailed.php?prod_id='.$prod_id.'');
     }else {
         // Error occurred
         $error = error_get_last();
@@ -156,3 +171,71 @@ if(isset($_POST['addToCartBtn'])){
     }
 
 }
+
+
+if(isset($_GET['logout'])){
+    session_start();
+    session_destroy();
+    session_abort();
+    session_unset();
+
+    header("Location: ../index.php?logout");
+}
+
+
+if(isset($_POST['sendMessageBtn'])){
+    $name = $_POST['name'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $message = $_POST['message'];
+    $subject = $_POST['subject'];
+
+    $sql = "INSERT INTO `messages`(`name`, `email`, `phone`, `subject`, `message`) VALUES ('$name','$email','$phone','$subject','$message')";
+
+    $query = mysqli_query($con, $sql);
+    if($query){
+        header("Location: ../Contact-page/Contact.php?message-sent");
+    }
+}
+
+if(isset($_GET['checkout'])){
+   echo $uid = $_GET['uid'];
+   echo $total = $_GET['total'];
+   $sqlCart = "SELECT cart.id, products.product_name, cart.sub_total, cart.price, products.images, cart.quantity, cart.user_id
+FROM cart
+ JOIN products ON cart.product_id=products.id WHERE cart.user_id = '$uid'";
+$queryCart  = mysqli_query($con, $sqlCart);
+
+
+$products = [];
+
+while($row = mysqli_fetch_assoc($queryCart)){
+    $product = array(
+        'id' => $row['id'],
+        'product_name' => $row['product_name'],
+        'sub_total' => $row['sub_total'],
+        'price' => $row['price'],
+        'images' => $row['images'],
+        'quantity' => $row['quantity']
+    );
+    $products[] = $product;
+}
+
+ // Encode the $products array into JSON
+ $order_info = json_encode($products);
+   
+
+    $sql = "INSERT INTO `orders`( `order_info`, `user_id`, `total`, `transaction_id`) VALUES ('$order_info','$uid','$total','$total')";
+
+    $query = mysqli_query($con, $sql);
+    if($query){
+        //DELECT USER PRODUCT FROM CART
+        $sqlDelCart = "DELETE FROM cart WHERE user_id = '$uid'";
+        $queryDelCart = mysqli_query($con, $sqlDelCart);
+        if($queryDelCart){
+            header("Location: ../Product-page/product.php?order-saved");
+        }
+      
+    }
+}
+

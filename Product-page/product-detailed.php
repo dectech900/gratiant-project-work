@@ -46,7 +46,7 @@ if(isset($_SESSION['id'])){
 </a>
             <div class="product-rating">
                 <div>
-                    <div>4.3 <img src="../assets/rating_img.png" height="20px" alt=""></div>
+                    <div><?= $product['rating'] ?> <img src="../assets/rating_img.png" height="20px" alt=""></div>
                     <p>10O+ ratings </p>
                 </div>
                 <p><span>Ghc<?= $product['price'] ?></span>Price</p>
@@ -87,15 +87,15 @@ if(isset($_SESSION['id'])){
             </div>
             <div class="product-info">
                 <p><b>Brand</b></p>
-                <p>BENGOO</p>
+                <p><?= $product['brand'] ?></p>
                 <p><b>Model Name</b></p>
-                <p>G9000</p>
+                <p><?= $product['model'] ?></p>
                 <p><b>Color</b></p>
-                <p>Blue</p>
+                <p><?= $product['color'] ?></p>
                 <p><b>Form Factor</b></p>
-                <p>Over Ear</p>
+                <p><?= $product['form_factor'] ?></p>
                 <p><b>Connectivity Technology</b></p>
-                <p>Wired</p>
+                <p><?= $product['technology'] ?></p>
             </div>
             <hr>
             <div class="product-description">

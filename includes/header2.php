@@ -6,6 +6,14 @@ if(isset($_SESSION['id'])){
      $user_id = $_SESSION['id'];
      $name = $_SESSION['name'];
 }
+$sqlCart = "SELECT * FROM cart WHERE user_id = '$user_id'";
+$queryCart  = mysqli_query($con, $sqlCart);
+
+
+$totalCartItems = mysqli_num_rows($queryCart);
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,9 +24,18 @@ if(isset($_SESSION['id'])){
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../Product-page/product.css">
 <link rel="stylesheet" href="../Product-page/prod.css">
+<link rel="stylesheet" href="../Cart-page/cart.css">
+<link rel="stylesheet" href="../Order-page/order.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+        <!-- <link href="https://cdn.datatables.net/v/dt/dt-2.0.5/datatables.min.css" rel="stylesheet"> -->
+        <!-- <link href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" rel="stylesheet"> -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
+        <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -51,9 +68,11 @@ if(isset($_SESSION['id'])){
         <a href="../Login-page/login.html" class="mobile-user-icon" style="display: none;">
             <img src="../assets/user.png">
         </a>
-        <a href="Cart-page/cart.html" class="nav-cart">
-            <img src="../assets/cart_icon.png" width="35px" alt="">
-            <h4>Cart</h4>
+        <a href="../Cart-page/cart.php" class="nav-cart">
+            <img src="../assets/cart_icon.png" width="32px" alt="">
+            
+            <h4>Cart </h4>
+            <span><?= $totalCartItems; ?></span>
         </a>
     </nav>
     <div class="nav-bottom">
@@ -63,10 +82,28 @@ if(isset($_SESSION['id'])){
         <p><a href="../index.php"> Home</a></p>
         <p><a href="../Product-page/product.php"> Product</a></p>
         <!-- <p><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/About.html"> About</a></p> -->
-        <p><a href="../Contact-page/contact.html"> Contact</a></p>
+        <p><a href="../Contact-page/contact.php"> Contact</a></p>
 
-        <!-- <p><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/FAQS.html"> Faqs</a></p> -->
-        <p><a href="../Sell-page/sell.php"> Sell</a></p>
+        <?php
+            if(isset($_SESSION['id'])  && $_SESSION['user_type'] == "SELLER") {
+                ?>
+       <p><a href="../Sell-page/sell.php"> Sell</a></p>
+       <p><a href="../Order-page/order.php"> Orders</a></p>
+       <p><a href="../includes/action.php?logout">Logout </a></p>
+                <?php
+            }elseif(isset($_SESSION['id']) && $_SESSION['user_type'] == "BUYER"){
+                ?>
+                <!-- <p><a href="../Sell-page/sell.php"> Sell</a></p>
+                <p><a href="../Order-page/order.php"> Orders</a></p> -->
+                <p><a href="../includes/action.php?logout"> Logout</a></p>
+                         <?php
+            } else{
+                ?>
+         
+                <?php
+            }
+            ?>
+        
 
 
     </div>

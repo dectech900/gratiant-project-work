@@ -1,6 +1,6 @@
 <?php
-session_start();
-include '../database/config.php';
+// session_start();
+// include '../database/config.php';
 
 if(isset($_SESSION['id'])){
      $user_id = $_SESSION['id'];

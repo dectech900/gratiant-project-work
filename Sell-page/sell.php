@@ -1,6 +1,7 @@
+<?php include_once '../includes/header2.php'?>
 <?php
-session_start();
-include '../database/config.php';
+// session_start();
+// include '../database/config.php';
 
 if (isset($_SESSION['id'])) {
      $user_id = $_SESSION['id'];
@@ -14,60 +15,9 @@ $sqlProdCateQuery = mysqli_query($con, $sqlProdCate);
 $sqlProd = "SELECT * FROM products WHERE user_id = '$user_id'";
 $sqlProdQuery = mysqli_query($con, $sqlProd);
 
-
-
-
-
-
-
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SELL</title>
-    <link rel="stylesheet" href="header.css">
-    <link rel="stylesheet" href="sell-products.css">
-    <!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
-    <!-- <link rel="stylesheet" href="../style.css"> -->
-
-</head>
-
-<body>
-    <!-- Nav Menu -->
-    <header class="header">
-        <div class="nav">
-            <div class="header-container">
-                <div class="header-inner">
-                    <span class="side-logo">
-                        <img src="../LOGO 6.png" width="100 alt=">
-                    </span>
-                    <span class="home-dir">
-                        <a href="../index.php">Home</a>
-                    </span>
-                </div>
-
-                <div class="account-box">
-                    <span class="material-symbols-outlined">
-                        search
-                    </span>
-
-                    <span>
-                        <img src="../assets/avatar.png" alt="Avatar" class="avatar"
-                            style="width:30px; height:30px ;"></span>
-                </div>
-            </div>
-        </div>
-        <hr>
-
-
-    </header>
 
 
     <div class="header-two">
@@ -96,21 +46,22 @@ $sqlProdQuery = mysqli_query($con, $sqlProd);
 
             <?php while($prod = mysqli_fetch_assoc($sqlProdQuery)): ?>
             <div class="product-item">
-                <span> <img src="../uploads/<?= $prod['images']?>" alt="" style="width: 100px;"></span>
+            <a href="../Product-page/product-detailed.php?prod_id=<?= $prod['id'] ?>"> <img src="../uploads/<?= $prod['images']?>" alt="" style="width: 100px;"></a>
                 <span class="item-box">
-                    <h4><?= $prod['product_name'] ?></h4>
-                    <p>GH₵<?= $prod['price'] ?></p>
+                <a href="../Product-page/product-detailed.php?prod_id=<?= $prod['id'] ?>"><h4><?= $prod['product_name'] ?></h4></a>
+                    <p><a href="../Product-page/product-detailed.php?prod_id=<?= $prod['id'] ?>">GH₵<?= $prod['price'] ?></a></p>
                     <div class="product-actions">
                         <span class="material-symbols-outlined">
                             note_stack_add
                         </span>
-                        <span class="material-symbols-outlined">
+                        <a href="../includes/action.php?delete_product&prod_id=<?= $prod['id'] ?>" class="material-symbols-outlined">
                             delete
-                        </span>
+            </a>
                     </div>
                 </span>
             </div>
             <?php endwhile; ?>
+
             <!-- <div class="product-item">
                 <span> <img src="../assets/Products-images/2.jpeg" alt="" style="width: 100px;"></span>
 
@@ -457,6 +408,27 @@ $sqlProdQuery = mysqli_query($con, $sqlProd);
 
 
                 </span>
+
+                <div class="Price-container">
+                        <div class="price-box2">
+                            <label for="priceAmount">Price:</label>
+                            <div class="price-input-wrapper">
+                                <input type="text" id="priceAmount" name="price" required>
+                                <div class="currency-selector">
+                                    <!-- <select id="color" name="color">
+                                        <option value="Red">Red</option>
+                                        <option value="White">White</option>
+                                        <option value="Blue">Blue</option>
+                                        <option value="Orange">Orange</option>
+                                        <option value="Green">Green</option>
+                                        <option value="Black">Black</option>
+                                        <option value="Gray">Gray</option>
+                                    </select> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 <div class="categories-box">
                     <div class="categories-container">
                         <div class="categories-box">
@@ -471,49 +443,65 @@ $sqlProdQuery = mysqli_query($con, $sqlProd);
                             </select>
                         </div>
 
-                        <!-- <div class="subcategories-container">
+                         <div class="subcategories-container">
                             <div class="categories-box2">
-                                <label for="subcategory">Subcategories:</label>
-                                <select id="subcategory" name="subcategory" required>
-                                    <option value="">Select a subcategory</option>
-                                  
-                                    <optgroup label="Electronics">
-                                        <option value="phones">Phones</option>
-                                        <option value="laptops">Laptops</option>
-                                        <option value="tablets">Tablets</option>
-                                    </optgroup>
-                                   
-                                    <optgroup label="Clothing">
-                                        <option value="shirts">Shirts</option>
-                                        <option value="pants">Pants</option>
-                                        <option value="dresses">Dresses</option>
-                                    </optgroup>
-                                   
-                                </select>
+                                <label for="brand">Brand:</label>
+                                <input type="text" id="brand" name="brand">
+                                
                             </div>
+                        </div> 
+                         <div class="subcategories-container">
+                            <div class="categories-box2">
+                                <label for="color">Color:</label>
+                                <select id="color" name="color">
+                                        <option value="Red">Red</option>
+                                        <option value="White">White</option>
+                                        <option value="Blue">Blue</option>
+                                        <option value="Orange">Orange</option>
+                                        <option value="Green">Green</option>
+                                        <option value="Black">Black</option>
+                                        <option value="Gray">Gray</option>
+                                    </select>
+                            </div>
+                        </div> 
+                    </div>
 
-
-
-                        </div> -->
+                    
+                    <div class="categories-container">
+                    <div class="subcategories-container">
+                            <div class="categories-box2">
+                                <label for="model">Model:</label>
+                                <input type="text" id="model" name="model">
+                                
+                            </div>
+                        </div> 
+                    <div class="subcategories-container">
+                            <div class="categories-box2">
+                                <label for="rating">Rating:</label>
+                                <input type="text" id="rating" name="rating">
+                                
+                            </div>
+                        </div> 
+                    <div class="subcategories-container">
+                            <div class="categories-box2">
+                                <label for="form_factor">Form Factor:</label>
+                                <input type="text" id="form_factor" name="form_factor">
+                                
+                            </div>
+                        </div> 
+                    <div class="subcategories-container">
+                            <div class="categories-box2">
+                                <label for="technology">Technology:</label>
+                                <input type="text" id="technology" name="technology">
+                                
+                            </div>
+                        </div> 
                     </div>
 
 
 
                     <!-- Container for image previews -->
-                    <div class="Price-container">
-                        <div class="price-box2">
-                            <label for="priceAmount">Price:</label>
-                            <div class="price-input-wrapper">
-                                <input type="text" id="priceAmount" name="price" required>
-                                <div class="currency-selector">
-                                    <select id="currency" name="currency">
-                                        <option value="USD">USD</option>
-                                        <option value="GHC">GHC</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+      
                     <span class="submit-btn">
                         <button type="submit" name="addProductBtn" id="addProductBtn">Submit</button>
                     </span>

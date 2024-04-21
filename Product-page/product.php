@@ -23,14 +23,14 @@ $sqlProdQuery = mysqli_query($con, $sqlProd);
                 <span class="item-box">
                     <a href="product-detailed.php?prod_id=<?= $prod['id'] ?>"><h4><?= $prod['product_name'] ?></h4></a>
                     <p><a href="product-detailed.php?prod_id=<?= $prod['id'] ?>">GH₵<?= $prod['price'] ?></a></p>
-                    <div class="product-actions">
+                    <!-- <div class="product-actions">
                         <span class="material-symbols-outlined">
                             note_stack_add
                         </span>
                         <span class="material-symbols-outlined">
                             delete
                         </span>
-                    </div>
+                    </div> -->
                 </span>
             </div>
             <?php endwhile; ?>
