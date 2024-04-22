@@ -154,46 +154,4 @@ $sqlProd = "SELECT * FROM products";
     <BR>
     <BR>
 
-    <footer>
-        <a href="#" class="footer-title">
-            Back to top
-        </a>
-        <div class="footer-items">
-            <ul>
-                <h3>Get to Know Us</h3>
-                <li><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/About.html">About us</a></li>
-            </ul>
-            <br>
-            <br>
-            <br>
-            <ul>
-                <h3>Make Money with Us</h3>
-                <li><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/SELL%20ON%20SECURE.Buynsell.php">Sell
-                        on SECURE.BuynSell</a></li>
-                <li><a
-                        href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/Protect%20and%20build%20your%20brand.html">Protect
-                        and Build Your Brand</a></li>
-                <li><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/Advertise%20your%20product.php">Advertise
-                        Your Products</a></li>
-                <li><a
-                        href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/Receive%20pament%20for%20your%20item%20with%20our%20escrow%20service.html">Recieve
-                        payment for your items with our escrow service </a></li>
-            </ul>
-            <ul>
-                <h3>Let Us Help You</h3>
-                <li><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/Your%20Account.html">Your
-                        Account</a></li>
-                <li><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/Return%20centre.html">Return
-                        Centre</a></li>
-                <li><a
-                        href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/100%25%20Puurchase%20protection.html">100%
-                        Purchase Protection</a></li>
-                <li><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/CONTACT.html">Contact Us</a></li>
-            </ul>
-        </div>
-
-    </footer>
-    <script src="./script.js"></script>
-</body>
-
-</html>
+   <?php include_once 'includes/footer1.php';?>

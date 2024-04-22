@@ -36,6 +36,137 @@ $totalCartItems = mysqli_num_rows($queryCart);
   src="https://code.jquery.com/jquery-2.2.4.min.js"
   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
   crossorigin="anonymous"></script>
+  <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Outfit;
+}
+html {
+    scroll-behavior: smooth;
+  }
+
+body {
+    background: rgb(152, 233, 233);
+  min-height: 100vh; /* vh stands for viewport height */
+}
+
+a:hover {
+    color: #ddd;
+  }
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 10px 20px;
+    color: black;
+}
+
+
+.nav-texts {
+    margin-left: 5px;
+}
+
+.nav-texts p {
+    font-size: 20px;
+}
+
+.nav-texts h1 {
+    font-size: 10px;
+}
+
+.nav-cart {
+    display: flex;
+    align-items: end;
+    margin: 0px 15px;
+}
+
+
+        #paymentForm {
+    width: 300px;
+    margin: 0 auto;
+  }
+
+  /* Styling for form groups */
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  /* Styling for labels */
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+
+  }
+
+  /* Styling for input fields */
+  input[type="email"],
+  input[type="tel"],
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid aqua;
+    border-radius: 4px;
+  }
+
+  /* Styling for submit button */
+  button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  footer{
+       
+          
+          .footer-items {
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+            margin: 0 auto;
+            background: #232f3e;
+          }
+          
+          .footer-items h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #fff;
+            margin: 20px 0 10px 0;
+          }
+          
+          .footer-items ul {
+            list-style: none;
+            margin-bottom: 20px;
+          }
+          
+          .footer-items li a {
+            color: #ddd;
+            font-size: 0.875rem;
+          }
+          
+          .footer-items li a:hover {
+            text-decoration: underline;
+          } 
+         
+    }
+
+    </style>
 </head>
 
 <body>

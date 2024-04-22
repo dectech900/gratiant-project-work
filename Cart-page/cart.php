@@ -82,6 +82,7 @@ $queryCart  = mysqli_query($con, $sqlCart);
         <p class="cart-subtotal">Total: <b>Ghc<?= $GLOBALS['total']?></b></p>
 
        <a href="../includes/action.php?checkout&uid=<?= $user_id; ?>&total=<?= $GLOBALS['total']; ?>">  <button>Checkout</button></a>
+       <a href="../Payment-page/payment.php?checkout&uid=<?= $user_id; ?>&total=<?= $GLOBALS['total']; ?>">  <button>Checkout2</button></a>
 
     </div>
 </div>
