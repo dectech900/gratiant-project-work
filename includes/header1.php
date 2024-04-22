@@ -1,7 +1,4 @@
 <?php
-session_start();
-include '../database/config.php';
-
 if(isset($_SESSION['id'])){
      $user_id = $_SESSION['id'];
      $name = $_SESSION['name'];
@@ -17,10 +14,10 @@ if(isset($_SESSION['id'])){
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SECURE.BuynSell</title>
-<link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="../Product-page/product.css">
-<link rel="stylesheet" href="../Product-page/prod.css">
-<link rel="stylesheet" href="../Cart-page/cart.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="Product-page/product.css">
+<link rel="stylesheet" href="Product-page/prod.css">
+<link rel="stylesheet" href="Cart-page/cart.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
