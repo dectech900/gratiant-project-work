@@ -5,8 +5,21 @@
 <?php
 
 
-$sqlProd = "SELECT * FROM products";
+
+$title = "";
+if(isset($_GET['category'])){
+$cat_id = $_GET['cat_id'];
+$cate_name = $_GET['cat_name'];
+
+$title = $cate_name;
+
+$sqlProd = "SELECT * FROM products WHERE category = '$cat_id'";
 $sqlProdQuery = mysqli_query($con, $sqlProd);
+}else{
+    $sqlProd = "SELECT * FROM products";
+    $sqlProdQuery = mysqli_query($con, $sqlProd);
+    $title = "All Products";
+}
 
 
 ?>
@@ -14,8 +27,10 @@ $sqlProdQuery = mysqli_query($con, $sqlProd);
 
 
 
-    <div class="Product-wrapper">
-        <div class="product-grid">
+<div class="Product-wrapper" >
+        <h2><?= $title; ?> <small> (<?php echo mysqli_num_rows($sqlProdQuery); ?>)</small></h2>
+        <br/>
+        <div class="product-grid" style="width: 97%">
 
             <?php while($prod = mysqli_fetch_assoc($sqlProdQuery)): ?>
             <div class="product-item" >
@@ -35,294 +50,7 @@ $sqlProdQuery = mysqli_query($con, $sqlProd);
             </div>
             <?php endwhile; ?>
 
-            <!-- <div class="product-item">
-                <span> <img src="../assets/Products-images/2.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div> -->
-            <!-- <div class="product-item">
-                <span> <img src="../assets/Products-images/2.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div>
-            <div class="product-item">
-                <span> <img src="../assets/Products-images/3.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div>
-            <div class="product-item">
-                <span> <img src="../assets/Products-images/4.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div>
-            <div class="product-item">
-                <span> <img src="../assets/Products-images/5.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div>
-            <div class="product-item">
-                <span> <img src="../assets/Products-images/6.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div>
-            <div class="product-item">
-                <span> <img src="../assets/Products-images/7.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div>
-            <div class="product-item">
-                <span> <img src="../assets/Products-images/8.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div>
-            <div class="product-item">
-                <span> <img src="../assets/Products-images/9.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div>
-            <div class="product-item">
-                <span> <img src="../assets/Products-images/20.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div>
-            <div class="product-item">
-                <span> <img src="../assets/Products-images/11.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div>
-            <div class="product-item">
-                <span> <img src="../assets/Products-images//15.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div>
-            <div class="product-item">
-                <span> <img src="../assets/Products-images/3.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div>
-            <div class="product-item">
-                <span> <img src="../assets/Products-images/11.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div>
-            <div class="product-item">
-                <span> <img src="../assets/Products-images/8.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div>
-            <div class="product-item">
-                <span> <img src="../assets/Products-images/7.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div>
-            <div class="product-item">
-                <span> <img src="../assets/Products-images/6.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div>
-            <div class="product-item">
-                <span> <img src="../assets/Products-images/1.jpeg" alt="" style="width: 100px;"></span>
-
-                <span class="item-box">
-                    <h4>Lenovo Ideapad V14 Laptop</h4>
-                    <p>GH₵2,000</p>
-                    <div class="product-actions">
-                        <span class="material-symbols-outlined">
-                            note_stack_add
-                        </span>
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </div>
-                </span>
-            </div> -->
+        
 
 
         </div>
@@ -331,10 +59,10 @@ $sqlProdQuery = mysqli_query($con, $sqlProd);
     <div class="pagination-container">
         <ul class="pagination">
             <li><a href="#" id="page1">1</a></li>
-            <li><a href="#" id="page2">2</a></li>
+            <!-- <li><a href="#" id="page2">2</a></li>
             <li><a href="#" id="page3">3</a></li>
             <li><a href="#" id="page4">4</a></li>
-            <li><a href="#" id="page5">5</a></li>
+            <li><a href="#" id="page5">5</a></li> -->
         </ul>
     </div>
 
@@ -365,6 +93,6 @@ $sqlProdQuery = mysqli_query($con, $sqlProd);
         const actualPrice = document.querySelector('#actual-price');
 
     </script>
-</body>
 
-</html>
+
+<?php  include_once "../includes/footer2.php"; ?>

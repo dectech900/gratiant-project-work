@@ -4,21 +4,15 @@ include '../database/config.php';
 
 
 if (isset($_POST['loginBtn'])) {
-    echo $email = $_POST['email'];
-    echo $password = $_POST['password'];
+     $email = $_POST['email'];
+     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password' AND user_type = 'BUYER' OR user_type = 'SELLER'";
     $sqlQuery = mysqli_query($con, $sql);
 
-    var_dump($sqlQuery);
 
     if (mysqli_num_rows($sqlQuery) > 0) {
         $rows = mysqli_fetch_assoc($sqlQuery);
-
-
-        // var_dump($rows);
-
-        // die();
 
         $id = $rows["id"];
         $user_type = $rows["user_type"];
@@ -38,7 +32,7 @@ if (isset($_POST['loginBtn'])) {
             //Redirect to dashboard based on user role
             if ($_SESSION['user_type'] === "SELLER") {
                 header('Location: ../Sell-page/sell.php');
-            } elseif ($_SESSION['user_type'] != "BUYER") {
+            } elseif ($_SESSION['user_type'] === "BUYER") {
                 header('Location: ../index.php');
             }
         }
@@ -55,7 +49,7 @@ if (isset($_POST['signupBtn'])) {
     $password = $_POST['password'];
     $confirmPassword = $_POST['confirmPassword'];
     $user_type = $_POST['user_type'];
-    $phone = "023233434";
+    $phone = $_POST['phone'];
 
     $sql = "INSERT INTO `users`( `name`, `email`, `phone`, `user_type`, `password`) VALUES('$name','$email', '$phone', '$user_type','$password')";
     $sqlQuery = mysqli_query($con, $sql);
@@ -107,6 +101,7 @@ if (isset($_POST['addProductBtn'])) {
     $rating = $_POST['rating'];
     $form_factor = $_POST['form_factor'];
     $technology = $_POST['technology'];
+    $qty = $_POST['qty'];
 
 
     $filename = $_FILES["file"]["name"];
@@ -115,7 +110,7 @@ if (isset($_POST['addProductBtn'])) {
     $folder = "../uploads/" . $filename;
 
     if (move_uploaded_file($tempname, $folder)) {
-        $sql = "INSERT INTO `products`(`product_name`, `description`, `price`, `category`, `user_id`, `images`, `brand`, `model`, `color`,`rating`,`form_factor`,`technology`) VALUES ('$product_name', '$description', '$price','$category', '$user_id', '$filename','$brand', '$model','$color','$rating','$form_factor','$technology')";
+        $sql = "INSERT INTO `products`(`product_name`, `description`, `price`, `category`, `user_id`, `images`, `brand`, `model`, `color`,`rating`,`form_factor`,`technology`, `quantity`) VALUES ('$product_name', '$description', '$price','$category', '$user_id', '$filename','$brand', '$model','$color','$rating','$form_factor','$technology', '$qty')";
 
         $query = mysqli_query($con, $sql);
 
@@ -201,7 +196,7 @@ if(isset($_POST['sendMessageBtn'])){
 if(isset($_GET['checkout'])){
    echo $uid = $_GET['uid'];
    echo $total = $_GET['total'];
-   $sqlCart = "SELECT cart.id, products.product_name, cart.sub_total, cart.price, products.images, cart.quantity, cart.user_id
+   $sqlCart = "SELECT cart.id, products.product_name, cart.sub_total, cart.price, products.images, cart.quantity, cart.user_id, products.user_id as seller_id
 FROM cart
  JOIN products ON cart.product_id=products.id WHERE cart.user_id = '$uid'";
 $queryCart  = mysqli_query($con, $sqlCart);
@@ -210,32 +205,97 @@ $queryCart  = mysqli_query($con, $sqlCart);
 $products = [];
 
 while($row = mysqli_fetch_assoc($queryCart)){
-    $product = array(
-        'id' => $row['id'],
-        'product_name' => $row['product_name'],
-        'sub_total' => $row['sub_total'],
-        'price' => $row['price'],
-        'images' => $row['images'],
-        'quantity' => $row['quantity']
-    );
-    $products[] = $product;
-}
+    $product_name = $row['product_name'];
+    $price = $row['price'];
+    $quantity = $row['quantity'];
+    $images = $row['images'];
+    $seller_id = $row['seller_id'];
 
- // Encode the $products array into JSON
- $order_info = json_encode($products);
-   
-
-    $sql = "INSERT INTO `orders`( `order_info`, `user_id`, `total`, `transaction_id`) VALUES ('$order_info','$uid','$total','$total')";
+    // $product = array(
+    //     'id' => $row['id'],
+    //     'product_name' => $row['product_name'],
+    //     'sub_total' => $row['sub_total'],
+    //     'price' => $row['price'],
+    //     'images' => $row['images'],
+    //     'quantity' => $row['quantity'],
+    //     'seller_id' => $row['seller_id'],
+    // );
+    // $products[] = $product;
+    $sql = "INSERT INTO `orders`(`product_name`, `product_quantity`,`price`, `seller_id`, `product_image`, `user_id`, `total`) VALUES ('$product_name','$quantity','$price', '$seller_id', '$images','$uid','$total')";
 
     $query = mysqli_query($con, $sql);
-    if($query){
+    $order_id = mysqli_insert_id($con);
+  
+}
+
+if($query){
+    $sqlDelivery = "SELECT * from delivery_info WHERE user_id = '$uid'";
+    $queryDeliveryInfo = mysqli_query($con, $sqlDelivery);
+    $deliveryFetch = mysqli_fetch_assoc($queryDeliveryInfo);
+
+    
+
+  echo  $delivery_id = $deliveryFetch['id'];
+    $sqlUpdateDelivery = "UPDATE orders SET delivery_id = 7 WHERE orders.id = '$order_id'";
+    $saveQuery = mysqli_query($con, $sqlUpdateDelivery);
+
+
+        if($saveQuery){
         //DELECT USER PRODUCT FROM CART
         $sqlDelCart = "DELETE FROM cart WHERE user_id = '$uid'";
         $queryDelCart = mysqli_query($con, $sqlDelCart);
         if($queryDelCart){
             header("Location: ../Product-page/product.php?order-saved");
         }
-      
+    }
+  
+  
+}
+
+ // Encode the $products array into JSON
+
+
+}
+
+//Update delivery info
+if(isset($_POST['save_delivery'])){
+    $region = $_POST['region'];
+    $address1 = $_POST['address1'];
+    $address2 = $_POST['address2'];
+    $uid = $_POST['user_id'];
+
+    $sql = "INSERT INTO `delivery_info`(`address1`, `address2`, `region`,  `user_id`) VALUES ('$address1','$address2','$region','$uid')";
+    $queryDeliveryInfo = mysqli_query($con, $sql);
+
+  
+    if($queryDeliveryInfo){
+        header("Location: ../Cart-page/cart.php?delivery-added");
+    }
+}
+if(isset($_POST['updateDelivery'])){
+    // $uid = $_POST['user_id'];
+    $delivery_id = $_POST['delivery_id'];
+
+    $sql = "INSERT INTO `delivery_info` SET `status` = 'DELIVERED' WHERE id = '$delivery_id'";
+    $queryDeliveryInfo = mysqli_query($con, $sql);
+
+  
+    if($queryDeliveryInfo){
+        header("Location: ../Order-page/seller-order.php?delivery-updated");
     }
 }
 
+///DELETE USER CART ITEM
+if(isset($_GET['deleteCart'])){
+    $cart_id = $_GET['cart_id'];
+    $uid = $_GET['uid'];
+
+    $sql = "DELETE FROM cart WHERE id='$cart_id' AND user_id = '$uid'";
+    $queryDelCart = mysqli_query($con, $sql);
+
+    if($queryDelCart){
+        header("Location: ../Cart-page/cart.php?cart-delete");
+    }
+
+
+}

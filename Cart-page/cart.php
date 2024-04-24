@@ -9,7 +9,7 @@ if(isset($_SESSION['id'])){
 }
 
 // $sqlCart = "SELECT * FROM cart";
-$sqlCart = "SELECT cart.id, products.product_name, cart.sub_total, cart.price, products.images, cart.quantity, cart.user_id
+$sqlCart = "SELECT cart.id AS cart_id, products.product_name, cart.sub_total, cart.price, products.images, cart.quantity, cart.user_id
 FROM cart
  JOIN products ON cart.product_id=products.id WHERE cart.user_id = '$user_id'";
 $queryCart  = mysqli_query($con, $sqlCart);
@@ -21,7 +21,11 @@ $queryCart  = mysqli_query($con, $sqlCart);
 ?>
 
 
-<div class="cart">
+<?php 
+
+if(mysqli_num_rows($queryCart) > 0){
+    ?>
+<div class="cart" style="display: flex;">
     <div class="cart-left">
         <h1>Shopping Cart</h1>
 
@@ -52,18 +56,20 @@ $queryCart  = mysqli_query($con, $sqlCart);
                 <div class="product-cart-list-action">
                     <select name="">
                         <option value="<?= $prod['quantity'] ?>">Qty: <?= $prod['quantity'] ?></option>
-                    <?php for($i = 1; $i<=20; $i++): ?>
-                <option value="<?= $i ?>">Qty: <?= $i ?></option>
-                <?php endfor; ?>
+                        <?php for($i = 1; $i<=20; $i++): ?>
+                        <option value="<?= $i ?>">Qty: <?= $i ?></option>
+                        <?php endfor; ?>
                     </select>
                     <hr>
-                    <p class="action-btn">Delete</p>
+                    <a href="../includes/action.php?deleteCart&cart_id=<?= $prod['cart_id'];?>&uid=<?= $user_id; ?>">
+                        <p class="action-btn">Delete</p>
+                    </a>
                     <hr>
-                    <p class="action-btn">Save for later</p>
+                    <!-- <p class="action-btn">Save for later</p>
                     <hr>
                     <p class="action-btn">Compare with similar items</p>
                     <hr>
-                    <p class="action-btn">Share</p>
+                    <p class="action-btn">Share</p> -->
                 </div>
             </div>
         </div>
@@ -81,22 +87,78 @@ $queryCart  = mysqli_query($con, $sqlCart);
         </div>
         <p class="cart-subtotal">Total: <b>Ghc<?= $GLOBALS['total']?></b></p>
 
-       <a href="../includes/action.php?checkout&uid=<?= $user_id; ?>&total=<?= $GLOBALS['total']; ?>">  <button>Checkout</button></a>
-       <a href="../Payment-page/payment.php?checkout&uid=<?= $user_id; ?>&total=<?= $GLOBALS['total']; ?>">  <button>Checkout2</button></a>
 
+        <!-- add delivery info -->
+        <button id="openModalBtn">&#43; Add Delivery Info </button>
+        
+
+        <a href="../Payment-page/payment.php?checkout&uid=<?= $user_id; ?>&total=<?= $GLOBALS['total']; ?>">
+            <button>Checkout</button></a>
+
+    </div>
+</div>
+<?php
+}else{
+    echo "No cart available.. Please back and add products to your cart first";
+}
+
+?>
+
+
+<div class="modal" id="myModal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add Your Delivery Info</h2>
+        <form action="../includes/action.php" method="POST" enctype="multipart/form-data" id="addProductForm">
+            <span class="address1">
+                <label for="address1">Address 1</label>
+                <input type="text" id="address1" name="address1" required>
+                <input type="hidden" id="user_id" name="user_id" value="<?= $_SESSION['id']; ?>" required>
+            </span>
+            <span class="productName">
+
+                <label for="address2">Address 2</label>
+                <input type="text" id="address2" name="address2" required>
+
+            </span>
+            <span class="productName">
+                <label for="region">Region</label>
+                <input type="text" id="region" name="region" required>
+            </span>
+
+            <button type="submit" name="save_delivery">Add Delivery</button></a>
+
+        </form>
     </div>
 </div>
 
 
-
 </section>
 
-<footer class="footer-cart">
-    <a href="../index.php"><img src="../logo.png" width="100" alt=""></a>
-    <p>© 2024, SECURE.BuynSell</p>
-</footer>
 
 
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+        const openModalBtn = document.getElementById("openModalBtn");
+        const modal = document.getElementById("myModal");
+        const closeModalBtn = document.getElementsByClassName("close")[0];
+    
+        openModalBtn.onclick = function () {
+            modal.style.display = "block";
+        }
+    
+        closeModalBtn.onclick = function () {
+            modal.style.display = "none";
+        }
+    
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    });
+    </script>
 <script>
 const scrollContainer = document.querySelectorAll(".products");
 for (const item of scrollContainer) {
@@ -106,6 +168,5 @@ for (const item of scrollContainer) {
     });
 }
 </script>
-</body>
 
-</html>
+<?php  include_once '../includes/footer2.php'; ?>

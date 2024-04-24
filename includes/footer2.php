@@ -1,4 +1,7 @@
+
 <footer>
+        <br/>
+                <br/>
         <a href="#" class="footer-title">
             Back to top
         </a>
@@ -43,7 +46,8 @@
 const paymentForm = document.getElementById('paymentForm');
 paymentForm.addEventListener("submit", payWithPaystack, false);
 
-// const amount= document.getElementById("amount").value,
+const uid= document.getElementById("uid").value;
+const amount= document.getElementById("amount").value;
 //   console.log("total", amount);
 
 function payWithPaystack(e) {
@@ -61,8 +65,12 @@ function payWithPaystack(e) {
     },
     callback: function(response){
       let message = 'Payment complete! Reference: ' + response.reference;
-      alert(message);
+//       window.location.href = "../Cart-page/cart.php?purchase";
+      window.location.href = `../includes/action.php?checkout&uid=${uid}&total=${amount}`;
+//       alert(message);
     }
+//     name: document.getElementById("first-name").value, // Pass the name parameter here
+// //     id: document.getElementById("first-name").value
   });
 
   handler.openIframe();
@@ -70,6 +78,8 @@ function payWithPaystack(e) {
 
       </script>
     <script src="../script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
 </body>
 
 </html>

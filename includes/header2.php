@@ -36,8 +36,11 @@ $totalCartItems = mysqli_num_rows($queryCart);
   src="https://code.jquery.com/jquery-2.2.4.min.js"
   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
   crossorigin="anonymous"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
   <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+        
+
 
 * {
     margin: 0;
@@ -50,7 +53,7 @@ html {
   }
 
 body {
-    background: rgb(152, 233, 233);
+    /* background: rgb(152, 233, 233); */
   min-height: 100vh; /* vh stands for viewport height */
 }
 
@@ -203,7 +206,7 @@ nav {
             <img src="../assets/cart_icon.png" width="32px" alt="">
             
             <h4>Cart </h4>
-            <span><?= $totalCartItems; ?></span>
+            <span style="padding-left: 5px;">(<?= $totalCartItems; ?>)</span>
         </a>
     </nav>
     <div class="nav-bottom">
@@ -212,20 +215,21 @@ nav {
         </div>
         <p><a href="../index.php"> Home</a></p>
         <p><a href="../Product-page/product.php"> Product</a></p>
-        <!-- <p><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/About.html"> About</a></p> -->
+        <p><a href="../About-page/About.php"> About</a></p>
         <p><a href="../Contact-page/contact.php"> Contact</a></p>
 
         <?php
             if(isset($_SESSION['id'])  && $_SESSION['user_type'] == "SELLER") {
                 ?>
        <p><a href="../Sell-page/sell.php"> Sell</a></p>
-       <p><a href="../Order-page/order.php"> Orders</a></p>
+       <p><a href="../Order-page/seller-order.php"> Orders</a></p>
        <p><a href="../includes/action.php?logout">Logout </a></p>
                 <?php
             }elseif(isset($_SESSION['id']) && $_SESSION['user_type'] == "BUYER"){
                 ?>
                 <!-- <p><a href="../Sell-page/sell.php"> Sell</a></p>
                 <p><a href="../Order-page/order.php"> Orders</a></p> -->
+                <p> <a href="../Order-page/buyer-order.php">My Orders</a></p>
                 <p><a href="../includes/action.php?logout"> Logout</a></p>
                          <?php
             } else{

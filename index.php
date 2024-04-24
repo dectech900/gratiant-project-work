@@ -7,8 +7,15 @@ if(isset($_SESSION['id'])){
      $name = $_SESSION['name'];
 }
 
-$sqlProd = "SELECT * FROM products";
-// $sqlProdCateQuery = mysqli_query($con, $sqlProdCate);
+$sqlProd = "SELECT * FROM product_category ORDER BY RAND() LIMIT 4";
+$sqlProdCateQuery = mysqli_query($con, $sqlProd);
+
+$sqlBestSell = "SELECT * FROM products ORDER BY RAND() LIMIT 5";
+$sqlProdBestSellQuery = mysqli_query($con, $sqlBestSell);
+
+
+$sqlDeals = "SELECT * FROM products ORDER BY RAND() LIMIT 10";
+$sqlProdDealsQuery = mysqli_query($con, $sqlDeals);
 
 ?>
 
@@ -25,14 +32,19 @@ $sqlProd = "SELECT * FROM products";
     </div>
 
     <div class="box-row">
+        <?php while($cat = mysqli_fetch_assoc($sqlProdCateQuery)):  ?>
         <div class="box-col">
-            <h3>Grooming Products</h3>
-            <img src="./assets/box2-1.jpg" alt="">
-            <a href="">Shop More</a>
+            <h3><?= $cat['category_name'];  ?></h3>
+           <div style="width: 250px; height: 200px; overflow: hidden">
+           <img style="width: 100%; height: 200px;" src="./assets/category/<?= $cat['category_image'] ?>" alt="">
         </div>
-        <div class="box-col">
+            <a href="Product-page/product.php?category&cat_id=<?= $cat['id']; ?>&cat_name=<?= $cat['category_name'] ?>">Shop More</a>
+        </div>
+        <?php endwhile; ?>
+
+        <!-- <div class="box-col">
             <h3>Latest Devices</h3>
-            <img src="c:\Users\Graham\Downloads\WhatsApp Image 2024-04-10 at 8.16.34 PM.jpeg" alt="">
+            <img src="assets/" alt="">
             <a href="">Shop More</a>
         </div>
         <div class="box-col">
@@ -44,57 +56,78 @@ $sqlProd = "SELECT * FROM products";
             <h3>Fashion </h3>
             <img src="./assets/box2-4.jpg" alt="">
             <a href="">Shop More</a>
-        </div>
+        </div> -->
 
     </div>
 
 
 
     <div class="products-slider">
-        <h2>Best Sellers</h2>
-        <div class="products">
-            <img src="///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/assets/product_img.jpg">
-            <img src="https://fabamall.com/media/product/image/2022/12/image_picker7054751434124680564.jpg">
-            <img src="https://pictures-ghana.jijistatic.net/39109095_NjIwLTcyNi0zNjEzYmU0MmFj.webp">
-            <img src="">
-            <img src="./assets/product1-4.jpg">
-            <img src="./assets/product1-5.jpg">
-            <img src="./assets/product1-6.jpg">
-            <img src="./assets/product1-7.jpg">
-        </div>
+        <h2>Best Selling Products</h2>
+        <br/>
+        <div class="product-grid" style="width: 97%">
+
+<?php while($prod = mysqli_fetch_assoc($sqlProdBestSellQuery)): ?>
+<div class="product-item" >
+    <a href="Product-page/product-detailed.php?prod_id=<?= $prod['id'] ?>"> <img src="uploads/<?= $prod['images']?>" alt="" style="width: 100px;"></a>
+    <span class="item-box">
+        <a href="Product-page/product-detailed.php?prod_id=<?= $prod['id'] ?>"><h4><?php 
+        if(strlen($prod['product_name']) > 50){
+           echo $str = substr($prod['product_name'], 0, 50) . '...';
+        }else{
+            echo $prod['product_name'];
+        }
+        ?></h4></a>
+        <p><a href="Product-page/product-detailed.php?prod_id=<?= $prod['id'] ?>">GH₵<?= $prod['price'] ?></a></p>
+        <!-- <div class="product-actions">
+            <span class="material-symbols-outlined">
+                note_stack_add
+            </span>
+            <span class="material-symbols-outlined">
+                delete
+            </span>
+        </div> -->
+    </span>
+</div>
+<?php endwhile; ?>
+
+
+
+
+</div>
     </div>
 
 
 
-    <div class="box-row">
-        <div class="box-col">
-            <h3>Gaming </h3>
-            <img src="///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/assets/product_img.jpg">
-            <a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/product.php">Shop More</a>
-        </div>
-        <div class="box-col">
-            <h3>Stationery</h3>
-            <img src="./assets/box3-1.jpg" alt="">
-            <a href="">Shop More</a>
-        </div>
-        <div class="box-col">
-            <h3>Laptops for study</h3>
-            <img src="./assets/box3-2.jpg" alt="">
-            <a href="">Shop More</a>
-        </div>
-        <div class="box-col">
-            <h3>Office chairs</h3>
-            <img src="./assets/box3-3.jpg" alt="">
-            <a href="">Shop More</a>
-        </div>
-
-    </div>
 
 
 
     <div class="products-slider-with-price">
         <h2>Deals</h2>
         <div class="products">
+        <?php while($prod = mysqli_fetch_assoc($sqlProdDealsQuery)): ?>
+            <div class="product-card">
+                <a href="Product-page/product-detailed.php?prod_id=<?= $prod['id'] ?>">
+                <div class="product-img-container">
+                    <img src="uploads/<?= $prod['images']?>" alt="">
+                </div>
+                <div class="product-price">
+                    <p><?= $prod['price']?>Ghc</p> <span>Price</span>
+                </div>
+                <h4>
+                    <?php
+                        if(strlen($prod['product_name']) > 20){
+                            echo $str = substr($prod['product_name'], 0, 20) . '...';
+                         }else{
+                             echo $prod['product_name'];
+                         }
+                         ?>
+                </h4>
+             </a>
+            </div>
+            <?php endwhile; ?>
+
+<!-- 
             <div class="product-card">
                 <div class="product-img-container">
                     <img src="./assets/product2-3.jpg" alt="">
@@ -139,19 +172,9 @@ $sqlProd = "SELECT * FROM products";
                     <p>50.00Ghc</p> <span>Price</span>
                 </div>
                 <h4>This product is the best for you</h4>
-            </div>
-            <div class="product-card">
-                <div class="product-img-container">
-                    <img src="./assets/product2-3.jpg" alt="">
-                </div>
-                <div class="product-price">
-                    <p>50.00Ghc</p> <span>Price</span>
-                </div>
-                <h4>This product is the best for you</h4>
-            </div>>
+            </div> -->
         </div>
     </div>
-    <BR>
-    <BR>
+
 
    <?php include_once 'includes/footer1.php';?>

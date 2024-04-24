@@ -21,10 +21,11 @@ if(isset($_GET['checkout'])){
         <div class="form-group">
           <label for="amount">Amount</label>
           <input type="tel" id="amount" readonly value="<?= $total;?>" required />
+          <input type="hidden" id="uid"  readonly value="<?= $uid;?>" required />
         </div>
         <div class="form-group">
           <label for="first-name">First Name</label>
-          <input type="text" id="first-name" />
+          <input type="text"  id="first-name" />
         </div>
         <div class="form-group">
           <label for="last-name">Last Name</label>

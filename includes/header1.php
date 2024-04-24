@@ -60,7 +60,7 @@ if(isset($_SESSION['id'])){
                 ?>
                 <img src="assets/cart_icon.png" width="32px" alt="">
   <h4>Cart </h4>
-            <span><? $totalCartItems; ?></span>
+  <span style="padding-left: 5px;">(<?= $totalCartItems; ?>)</span>
                 <?php
             }
             ?>
@@ -74,20 +74,21 @@ if(isset($_SESSION['id'])){
         </div>
         <p><a href="index.php"> Home</a></p>
         <p><a href="Product-page/product.php"> Product</a></p>
-        <!-- <p><a href="file:///C:/xampp/htdocs/SECURE.BuynSell%20project%20work/About.html"> About</a></p> -->
+        <p><a href="About-page/About.php"> About</a></p>
         <p><a href="Contact-page/contact.php"> Contact</a></p>
+       
 
         <?php
             if(isset($_SESSION['id'])  && $_SESSION['user_type'] == "SELLER") {
                 ?>
        <p><a href="Sell-page/sell.php"> Sell</a></p>
-       <p><a href="Order-page/order.php"> Orders</a></p>
+       <p><a href="Order-page/buyer-order.php"> Orders</a></p>
        <p><a href="includes/action.php?logout">Logout </a></p>
                 <?php
             }elseif(isset($_SESSION['id']) && $_SESSION['user_type'] == "BUYER"){
                 ?>
-                <!-- <p><a href="../Sell-page/sell.php"> Sell</a></p>
-                <p><a href="../Order-page/order.php"> Orders</a></p> -->
+              
+               <p> <a href="Order-page/buyer-order.php">My Orders</a></p>
                 <p><a href="includes/action.php?logout"> Logout</a></p>
                          <?php
             } else{

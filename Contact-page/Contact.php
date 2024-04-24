@@ -25,7 +25,7 @@ body{
   background: #fff;
   border-radius: 5px;
   box-shadow: 10px 10px 10px rgba(0,0,0,0.05);
-  display: flex;
+  /* display: flex; */
   padding: 0 10px;
   min-height: 100vh;
   background: #0D6EFD;
@@ -46,7 +46,7 @@ body{
   opacity: 0.7;
 }
 form .dbl-field{
-  display: flex;
+  /* display: b; */
   margin-bottom: 25px;
   justify-content: space-between;
 }
@@ -100,6 +100,7 @@ form .message textarea{
   max-height: 230px;
   max-width: 100%;
   min-width: 100%;
+  width: 100%;
   padding: 15px 20px 0 48px;
 }
 form .message textarea::-webkit-scrollbar{
@@ -236,5 +237,4 @@ form.onsubmit = (e)=>{
 
 
 
-</body>
-</html>
+<?php  include_once "../includes/footer2.php"; ?>
