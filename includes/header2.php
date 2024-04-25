@@ -5,12 +5,17 @@ include '../database/config.php';
 if(isset($_SESSION['id'])){
      $user_id = $_SESSION['id'];
      $name = $_SESSION['name'];
-}
-$sqlCart = "SELECT * FROM cart WHERE user_id = '$user_id'";
+     $sqlCart = "SELECT * FROM cart WHERE user_id = '$user_id'";
 $queryCart  = mysqli_query($con, $sqlCart);
 
 
 $totalCartItems = mysqli_num_rows($queryCart);
+
+}
+else{
+  $totalCartItems = 0;
+}
+
 
 
 

@@ -2,6 +2,7 @@
 session_start();
 include 'database/config.php';
 
+
 if(isset($_SESSION['id'])){
      $user_id = $_SESSION['id'];
      $name = $_SESSION['name'];

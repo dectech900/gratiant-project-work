@@ -1,3 +1,14 @@
+<?php
+if(isset($_GET['logout'])){
+  session_start();
+  session_destroy();
+  session_abort();
+  session_unset();
+
+  header("Location: ../index.php?logout");
+}
+?>
+
 <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
     <div class="sidebar-brand-icon">
@@ -39,6 +50,12 @@
     <a class="nav-link" href="../pages/products.php">
       <i class="fas fa-fw fa-user"></i>
       <span>Products</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="sidebar2.php?logout">
+      <i class="fas fa-fw fa-user"></i>
+      <span>Logout</span>
     </a>
   </li>
 

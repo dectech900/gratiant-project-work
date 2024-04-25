@@ -42,7 +42,14 @@ if (isset($_POST['loginBtn'])) {
     }
 
 }
+if(isset($_GET['logout'])){
+    session_start();
+    session_destroy();
+    session_abort();
+    session_unset();
 
+    header("Location: ../sindex.php?logout");
+}
 
 if(isset($_GET['transfer_order'])){
     $order_id = $_GET['order_id'];

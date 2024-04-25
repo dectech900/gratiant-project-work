@@ -3,11 +3,11 @@ session_start();
 include '../database/config.php';
 
 
-if (isset($_POST['loginBtn'])) {
+if (isset($_POST['loginBtn'])) { 
      $email = $_POST['email'];
      $password = $_POST['password'];
 
-    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password' AND user_type = 'BUYER' OR user_type = 'SELLER'";
+    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
     $sqlQuery = mysqli_query($con, $sql);
 
 
@@ -236,7 +236,7 @@ if($query){
     
 
   echo  $delivery_id = $deliveryFetch['id'];
-    $sqlUpdateDelivery = "UPDATE orders SET delivery_id = 7 WHERE orders.id = '$order_id'";
+    $sqlUpdateDelivery = "UPDATE orders SET delivery_id = '$delivery_id' WHERE orders.id = '$order_id'";
     $saveQuery = mysqli_query($con, $sqlUpdateDelivery);
 
 
